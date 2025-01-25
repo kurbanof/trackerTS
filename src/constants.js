@@ -1,7 +1,7 @@
 import { generatePeriodSelectOptions } from '@/functions'
 import { ICON_CLOCK, ICON_LIST_BULLET, ICON_CHART_BAR } from './icons'
 
-export const APP_NAME = 'onTrack'
+export const LOCAL_STORAGE_KEY = 'TrackerTS'
 
 export const PAGE_TIMELINE = 'timeline'
 export const PAGE_ACTIVITIES = 'activities'

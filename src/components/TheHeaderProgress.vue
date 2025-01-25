@@ -9,7 +9,7 @@ const { percentage, colorClass } = useTotalProgress()
 // const iconColor = watchEffect(() => console.log(typeof ('text' + colorClass.value.slice(2))))
 </script>
 <template>
-  <a :href="`#${PAGE_PROGRESS}`" @click="navigate(PAGE_PROGRESS)" class="text-lg">
+  <a :href="`#${PAGE_PROGRESS}`" class="text-lg" @click="navigate(PAGE_PROGRESS)">
     <div v-if="percentage < HUNDRED_PERCENT" class="flex items-center gap-2">
       <div>
         Progress: <span>{{ percentage }}%</span>

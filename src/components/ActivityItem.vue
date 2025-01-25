@@ -40,8 +40,8 @@ function deleteAndResetActivity(activity) {
         placeholder="hh:mm"
         :options="PERIOD_SELECT_OPTIONS"
         :selected="activity.secondsToComplete || null"
-        @select="updateActivities(activity, { secondsToComplete: $event || 0 })"
         class="grow"
+        @select="updateActivities(activity, { secondsToComplete: $event || 0 })"
       />
       <RemainingActivitySeconds v-if="activity.secondsToComplete" :activity="activity" />
     </div>

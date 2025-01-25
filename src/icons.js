@@ -10,6 +10,7 @@ import {
   PauseIcon as Pause,
   PlayIcon as Play,
   PlusIcon as Plus,
+  FireIcon as Fire,
 } from '@heroicons/vue/24/outline'
 
 export const ICON_ELLIPSIS_HORIZONTAL_CIRCLE = 'EllipsisHorizontalCircle'
@@ -23,6 +24,7 @@ export const ICON_X_MARK = 'XMark'
 export const ICON_PAUSE = 'Pause'
 export const ICON_PLAY = 'Play'
 export const ICON_PLUS = 'Plus'
+export const ICON_FIRE = 'Fire'
 
 export const ICONS = {
   [ICON_ELLIPSIS_HORIZONTAL_CIRCLE]: EllipsisHorizontalCircle,
@@ -36,4 +38,5 @@ export const ICONS = {
   [ICON_PAUSE]: Pause,
   [ICON_PLAY]: Play,
   [ICON_PLUS]: Plus,
+  [ICON_FIRE]: Fire,
 }
