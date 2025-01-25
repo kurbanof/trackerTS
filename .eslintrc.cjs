@@ -1,13 +1,23 @@
+/* eslint-env node */
+require('@rushstack/eslint-patch/modern-module-resolution')
 
 module.exports = {
-  extends: [
-    // add more generic rulesets here, such as:
-    // 'eslint:recommended',
-    'plugin:vue/vue3-recommended',
-    // 'plugin:vue/recommended' // Use this if you are using Vue.js 2.x.
+  root: true,
+  'extends': [
+    'plugin:vue/vue3-essential',
+    'eslint:recommended',
+    '@vue/eslint-config-prettier/skip-formatting',
+    '@vue/eslint-config-typescript'
   ],
-  rules: {
-    // override/add rules settings here, such as:
-    // 'vue/no-unused-vars': 'error'
-  }
+  parserOptions: {
+    ecmaVersion: 'latest'
+  },
+  overrides: [
+    {
+      files: ['postcss.config.cjs', 'tailwind.config.js'],
+      env: {
+        node: true
+      }
+    }
+  ]
 }

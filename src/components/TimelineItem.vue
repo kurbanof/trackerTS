@@ -1,36 +1,29 @@
 <script setup>
-import { computed } from 'vue'
-import { activitySelectOptions } from '@/activities'
-import { updateTimelineItem } from '@/timeline-items'
-import { now } from '@/time'
-import { isTimelineItemValid } from '@/validators'
-import TimelineHour from '@/components/TimelineHour.vue'
-import TimelineStopWatch from '@/components/TimelineStopWatch.vue'
-import BaseSelect from './UI/BaseSelect.vue'
+import { isTimelineItemValid } from '../validators'
+import { updateTimelineItem } from '../timeline-items'
+import { activitySelectOptions } from '../activities'
+import BaseSelect from './BaseSelect.vue'
+import TimelineHour from './TimelineHour.vue'
+import TimelineStopwatch from './TimelineStopwatch.vue'
 
-const props = defineProps({
+defineProps({
   timelineItem: {
     required: true,
     type: Object,
-    validator: isTimelineItemValid,
-  },
+    validator: isTimelineItemValid
+  }
 })
-
-const isCurrentHour = computed(() => props.timelineItem.hour === now.value.getHours())
 </script>
 
 <template>
-  <li
-    class="relative flex flex-col gap-2 border-t-4 border-gray-100 px-5 py-10"
-    :class="{ 'border-green-300/50': isCurrentHour }"
-  >
+  <li class="relative flex flex-col gap-2 border-t border-gray-200 px-4 py-10">
     <TimelineHour :hour="timelineItem.hour" />
     <BaseSelect
       placeholder="Rest"
-      :options="activitySelectOptions"
       :selected="timelineItem.activityId"
+      :options="activitySelectOptions"
       @select="updateTimelineItem(timelineItem, { activityId: $event })"
     />
-    <TimelineStopWatch :timeline-item="timelineItem" />
+    <TimelineStopwatch :timeline-item="timelineItem" />
   </li>
 </template>

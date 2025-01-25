@@ -1,23 +1,22 @@
 <script setup>
 import { computed } from 'vue'
-import { PAGE_TIMELINE } from '@/constants'
-import { currentPage, navigate } from '@/router'
-import { isNavItemValid } from '@/validators'
-import { scrollToCurrentHour } from '@/timeline-items'
-import BaseIcon from './UI/BaseIcon.vue'
+import { PAGE_TIMELINE } from '../constants'
+import { isNavItemValid } from '../validators'
+import { currentPage, navigate } from '../router'
+import { scrollToCurrentHour } from '../timeline-items'
+import BaseIcon from './BaseIcon.vue'
 
 const props = defineProps({
   navItem: {
     required: true,
     type: Object,
-    validator: isNavItemValid,
-  },
+    validator: isNavItemValid
+  }
 })
+
 const classes = computed(() => [
-  'duration-900 flex flex-col items-center  p-2  capitalize border-4 border-x-2',
-  currentPage.value === props.navItem.page
-    ? 'bg-slate-200/55 transition duration-200'
-    : 'transition hover:duration-200 hover:bg-slate-100/80',
+  'flex flex-col items-center p-2 text-xs capitalize',
+  props.navItem.page === currentPage.value ? 'bg-gray-200' : 'hover:bg-gray-100'
 ])
 
 function handleClick() {

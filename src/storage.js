@@ -1,7 +1,7 @@
-import { LOCAL_STORAGE_KEY } from '@/constants'
-import { activities, initializeActivities } from '@/activities'
-import { timelineItems, activeTimelineItem, initializeTimelineItems } from '@/timeline-items'
+import { LOCAL_STORAGE_KEY } from './constants'
 import { today } from './time'
+import { activities, initializeActivities } from './activities'
+import { activeTimelineItem, initializeTimelineItems, timelineItems } from './timeline-items'
 import { startTimelineItemTimer, stopTimelineItemTimer } from './timeline-item-timer'
 
 export function syncState(shouldLoad = true) {
@@ -29,7 +29,7 @@ function saveState() {
     JSON.stringify({
       timelineItems: timelineItems.value,
       activities: activities.value,
-      lastActiveAt: today(),
-    }),
+      lastActiveAt: today()
+    })
   )
 }

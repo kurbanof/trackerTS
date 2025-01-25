@@ -1,9 +1,9 @@
 <script setup>
-import { currentPage, navigate } from '@/router'
-import { PAGE_TIMELINE } from '@/constants'
-import { ICON_FIRE } from '@/icons'
-import { scrollToCurrentHour } from '@/timeline-items'
-import BaseIcon from './UI/BaseIcon.vue'
+import { PAGE_TIMELINE } from '../constants'
+import { ICON_CLOCK } from '../icons'
+import { currentPage, navigate } from '../router'
+import { scrollToCurrentHour } from '../timeline-items'
+import BaseIcon from './BaseIcon.vue'
 
 function handleClick() {
   currentPage.value === PAGE_TIMELINE ? scrollToCurrentHour(true) : navigate(PAGE_TIMELINE)
@@ -13,10 +13,9 @@ function handleClick() {
 <template>
   <a
     :href="`#${PAGE_TIMELINE}`"
-    class="flex origin-left rounded bg-gray-600 p-1 text-white"
     @click="handleClick"
+    class="origin-left scale-125 rounded bg-black p-1 text-white"
   >
-    <BaseIcon :name="ICON_FIRE" class="mr-2 h-5 w-5" />
-    <span>Tt</span>
+    <BaseIcon :name="ICON_CLOCK" class="h-5" />
   </a>
 </template>

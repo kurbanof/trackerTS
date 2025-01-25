@@ -1,18 +1,21 @@
-import { computed, ref } from 'vue'
+import { ref, computed } from 'vue'
 import {
-  MILLISECONDS_IN_SECONDS,
-  SECONDS_IN_HOUR,
   HUNDRED_PERCENT,
   SECONDS_IN_DAY,
-} from '@/constants'
+  MILLISECONDS_IN_SECOND,
+  SECONDS_IN_HOUR
+} from './constants'
+
+export const now = ref(today())
+
+export const secondsSinceMidnightInPercentage = computed(
+  () => (HUNDRED_PERCENT * secondsSinceMidnight.value) / SECONDS_IN_DAY
+)
+
+const secondsSinceMidnight = computed(() => (now.value - midnight.value) / MILLISECONDS_IN_SECOND)
 
 const midnight = computed(() => new Date(now.value).setHours(0, 0, 0, 0))
 
-const secondsSinceMidnight = computed(() => (now.value - midnight.value) / MILLISECONDS_IN_SECONDS)
-
-export const secondsSinceMidnightInPercentage = computed(
-  () => (secondsSinceMidnight.value * HUNDRED_PERCENT) / SECONDS_IN_DAY,
-)
 export function today() {
   return new Date()
 }
@@ -25,15 +28,13 @@ export function tomorrow() {
   return tomorrow
 }
 
-export function toSeconds(milliseconds) {
-  return Math.round(milliseconds / MILLISECONDS_IN_SECONDS)
-}
-
-export function endofHour(date) {
-  // const endOfHour = date
+export function endOfHour(date) {
   const endOfHour = new Date(date)
-  endOfHour.setTime(endOfHour.getTime() + SECONDS_IN_HOUR * MILLISECONDS_IN_SECONDS)
+
+  endOfHour.setTime(endOfHour.getTime() + SECONDS_IN_HOUR * MILLISECONDS_IN_SECOND)
+
   endOfHour.setMinutes(0, 0, 0)
+
   return endOfHour
 }
 
@@ -41,9 +42,10 @@ export function isToday(date) {
   return date.toDateString() === today().toDateString()
 }
 
-export const now = ref(today())
-// export const now = ref(new Date())
+export function toSeconds(milliseconds) {
+  return Math.round(milliseconds / MILLISECONDS_IN_SECOND)
+}
 
 export function startCurrentDateTimer() {
-  setInterval(() => (now.value = today()), MILLISECONDS_IN_SECONDS)
+  setInterval(() => (now.value = today()), MILLISECONDS_IN_SECOND)
 }

@@ -1,5 +1,4 @@
 import {
-  EllipsisHorizontalCircleIcon as EllipsisHorizontalCircle,
   CheckCircleIcon as CheckCircle,
   ListBulletIcon as ListBullet,
   ArrowPathIcon as ArrowPath,
@@ -9,11 +8,9 @@ import {
   XMarkIcon as XMark,
   PauseIcon as Pause,
   PlayIcon as Play,
-  PlusIcon as Plus,
-  FireIcon as Fire,
+  PlusIcon as Plus
 } from '@heroicons/vue/24/outline'
 
-export const ICON_ELLIPSIS_HORIZONTAL_CIRCLE = 'EllipsisHorizontalCircle'
 export const ICON_CHECK_CIRCLE = 'CheckCircle'
 export const ICON_LIST_BULLET = 'ListBullet'
 export const ICON_ARROW_PATH = 'ArrowPath'
@@ -24,10 +21,8 @@ export const ICON_X_MARK = 'XMark'
 export const ICON_PAUSE = 'Pause'
 export const ICON_PLAY = 'Play'
 export const ICON_PLUS = 'Plus'
-export const ICON_FIRE = 'Fire'
 
 export const ICONS = {
-  [ICON_ELLIPSIS_HORIZONTAL_CIRCLE]: EllipsisHorizontalCircle,
   [ICON_CHECK_CIRCLE]: CheckCircle,
   [ICON_LIST_BULLET]: ListBullet,
   [ICON_ARROW_PATH]: ArrowPath,
@@ -37,6 +32,5 @@ export const ICONS = {
   [ICON_X_MARK]: XMark,
   [ICON_PAUSE]: Pause,
   [ICON_PLAY]: Play,
-  [ICON_PLUS]: Plus,
-  [ICON_FIRE]: Fire,
+  [ICON_PLUS]: Plus
 }

@@ -1,22 +1,22 @@
-import { ref, computed, watch } from 'vue'
-import { HOURS_IN_DAY, MIDNIGT_HOUR } from './constants'
-import { today, isToday, endofHour, toSeconds, now } from './time'
-import { stopTimelineItemTimer } from '@/timeline-item-timer'
-
+import { computed, ref, watch } from 'vue'
+import { HOURS_IN_DAY, MIDNIGHT_HOUR } from './constants'
+import { endOfHour, isToday, now, toSeconds, today } from './time'
+import { stopTimelineItemTimer } from './timeline-item-timer'
 
 export const timelineItemRefs = ref([])
 
 export const timelineItems = ref([])
 
 export const activeTimelineItem = computed(() =>
-  timelineItems.value.find(({ isActive }) => isActive),
+  timelineItems.value.find(({ isActive }) => isActive)
 )
 
 watch(now, (after, before) => {
   if (activeTimelineItem.value && activeTimelineItem.value.hour !== after.getHours()) {
     stopTimelineItemTimer()
   }
-  if (before.getHours() !== after.getHours() && after.getHours() === MIDNIGT_HOUR) {
+
+  if (before.getHours() !== after.getHours() && after.getHours() === MIDNIGHT_HOUR) {
     resetTimelineItems()
   }
 })
@@ -37,17 +37,17 @@ export function updateTimelineItem(timelineItem, fields) {
   return Object.assign(timelineItem, fields)
 }
 
-export function resetTimelineActivities(timelineItems, activity) {
-  filterTimelinesItemsByActivity(timelineItems, activity).forEach((timelineItem) =>
+export function resetTimelineItemActivities(timelineItems, activity) {
+  filterTimelineItemsByActivity(timelineItems, activity).forEach((timelineItem) =>
     updateTimelineItem(timelineItem, {
       activityId: null,
-      activitySeconds: timelineItem.hour === today().getHours() ? timelineItem.activitySeconds : 0,
-    }),
+      activitySeconds: timelineItem.hour === today().getHours() ? timelineItem.activitySeconds : 0
+    })
   )
 }
 
 export function calculateTrackedActivitySeconds(timelineItems, activity) {
-  return filterTimelinesItemsByActivity(timelineItems, activity)
+  return filterTimelineItemsByActivity(timelineItems, activity)
     .map(({ activitySeconds }) => activitySeconds)
     .reduce((total, seconds) => Math.round(total + seconds), 0)
 }
@@ -55,33 +55,35 @@ export function calculateTrackedActivitySeconds(timelineItems, activity) {
 export function scrollToCurrentHour(isSmooth = false) {
   scrollToHour(today().getHours(), isSmooth)
 }
+
 export function scrollToHour(hour, isSmooth = true) {
-  const el = hour === MIDNIGT_HOUR ? document.body : timelineItemRefs.value[hour - 1].$el
+  const el = hour === MIDNIGHT_HOUR ? document.body : timelineItemRefs.value[hour - 1].$el
+
   el.scrollIntoView({ behavior: isSmooth ? 'smooth' : 'instant' })
 }
 
 function resetTimelineItems() {
-  timelineItems.value.forEach((timelineItem) => {
+  timelineItems.value.forEach((timelineItem) =>
     updateTimelineItem(timelineItem, {
       activitySeconds: 0,
-      isActive: false,
+      isActive: false
     })
-  })
+  )
 }
 
 function syncIdleSeconds(lastActiveAt) {
   updateTimelineItem(activeTimelineItem.value, {
-    aactivitySeconds: activeTimelineItem.value.activitySeconds + calculateIdleSeconds(lastActiveAt),
+    activitySeconds: activeTimelineItem.value.activitySeconds + calculateIdleSeconds(lastActiveAt)
   })
 }
 
 function calculateIdleSeconds(lastActiveAt) {
   return lastActiveAt.getHours() === today().getHours()
     ? toSeconds(today() - lastActiveAt)
-    : toSeconds(endofHour(lastActiveAt) - lastActiveAt)
+    : toSeconds(endOfHour(lastActiveAt) - lastActiveAt)
 }
 
-function filterTimelinesItemsByActivity(timelineItems, { id }) {
+function filterTimelineItemsByActivity(timelineItems, { id }) {
   return timelineItems.filter(({ activityId }) => activityId === id)
 }
 
@@ -90,6 +92,6 @@ function generateTimelineItems() {
     hour,
     activityId: null,
     activitySeconds: 0,
-    isActive: false,
+    isActive: false
   }))
 }
